@@ -9,3 +9,12 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+@font-face {
+  font-family: ZQK;
+  src: url(./font/ZQKfreefont-2.ttf);
+}
+
+:root {
+  --MyTheme: #f300b1;
+}
