@@ -37,4 +37,26 @@ function PasswordConfirm(pw1: string, pw2: string) {
   Message.Error("两次密码不一致！");
   return false;
 }
-export { LoginCheck, RegisterCheck, PasswordConfirm };
+
+function CheckEmail(email: string) {
+  if (email.trim()) {
+    return true;
+  }
+  Message.Error("请先输入邮箱！");
+  return false;
+}
+
+const DataControl = {
+  StorageUserInfo: (info: object) => {
+    localStorage.setItem("UserLoginInfo", JSON.stringify(info));
+  },
+  ReadUserInfo: () => {
+    const result = localStorage.getItem("UserLoginInfo");
+    if (result) {
+      return JSON.parse(result);
+    }
+    return;
+  },
+};
+
+export { LoginCheck, RegisterCheck, PasswordConfirm, DataControl, CheckEmail };

@@ -23,7 +23,7 @@
         <div class="input-group mb-3 input-group-lg">
             <input type="text" class="form-control col-8" v-model="registerInfo.verification_code" placeholder="输入验证码"
                 aria-describedby="button-addon2">
-            <button class="btn btn-outline-secondary col-4" type="button" id="button-addon2">发送</button>
+            <button class="btn btn-outline-secondary col-4" type="button" id="button-addon2" @click="Send">发送</button>
         </div>
         <div class="handle">
             <button type="button" class="btn btn-primary w-100 btn-lg" @click="Register">注册账号</button>
@@ -33,8 +33,9 @@
 
 <script setup lang="ts" name="Register">
 import type { RegisterInfo } from '@/types';
-import { PasswordConfirm, RegisterCheck } from '@/utils';
+import { PasswordConfirm, RegisterCheck, CheckEmail } from '@/utils';
 import { reactive, ref } from 'vue';
+import { RegisterRequest, VerificationRequest } from '@/api'
 
 const registerInfo = reactive<RegisterInfo>({
     userName: '',
@@ -46,9 +47,16 @@ const pwConfirm = ref("")
 
 function Register() {
     if (RegisterCheck(registerInfo) && PasswordConfirm(registerInfo.userPw, pwConfirm.value)) {
-        return console.log("OK");
+        RegisterRequest(registerInfo)
     }
-    console.log("No OK");
+}
+function Send() {
+    if (CheckEmail(registerInfo.userEmail)) {
+        VerificationRequest({
+            "email": registerInfo.userEmail
+        })
+    }
+
 }
 </script>
 

@@ -21,13 +21,16 @@
 import { reactive } from 'vue'
 import { LoginCheck } from '@/utils'
 import type { LoginInfo } from '@/types'
+import { LoginRequest } from '@/api'
 const loginInfo = reactive<LoginInfo>({
     userEmail: "",
     userPw: ""
 })
 
 function Login() {
-    LoginCheck(loginInfo)
+    if (LoginCheck(loginInfo)) {
+        LoginRequest(loginInfo)
+    }
 }
 </script>
 
