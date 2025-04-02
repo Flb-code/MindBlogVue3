@@ -18,3 +18,7 @@ body {
 :root {
   --MyTheme: #f300b1;
 }
+
+.theme-bg {
+  background-color: #ffaf24 !important;
+}
