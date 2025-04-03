@@ -8,6 +8,7 @@ body {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: var(--MyBg) !important;
 }
 
 @font-face {
@@ -16,9 +17,30 @@ body {
 }
 
 :root {
-  --MyTheme: #f300b1;
+  --MyTheme: #144bb0;
+  --MyBg: #f0f3f8;
+  --MyText: #18243c;
 }
 
 .theme-bg {
-  background-color: #ffaf24 !important;
+  background-color: var(--MyTheme) !important;
+}
+.theme-text-dark {
+  color: var(--MyText) !important;
+}
+.theme-text-light {
+  color: var(--MyBg) !important;
+}
+.theme-text-theme {
+  color: var(--MyTheme) !important;
+}
+.self-btn {
+  color: var(--MyBg) !important;
+  padding: 10px !important;
+  border-radius: 10px !important;
+  text-align: center;
+  background-color: var(--MyTheme) !important;
+}
+.transition-style {
+  transition: all 0.5s ease-in-out !important;
 }

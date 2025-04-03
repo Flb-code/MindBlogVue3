@@ -1,13 +1,13 @@
 <template>
     <div class="w-100 head">
-        <div class="container">
+        <div class="container transition-style">
             <nav class="navbar navbar-expand-lg">
-                <a class="navbar-brand" href="#">MindBlog</a>
+                <a class="navbar-brand theme-text" href="#">MindBlog</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="collapse navbar-collapse " id="navbarSupportedContent">
+                <div class="collapse  navbar-collapse " id="navbarSupportedContent">
                     <ul class="navbar-nav mx-auto text-center mb-2 mb-lg-0 ">
                         <li class="nav-item">
                             <a class="nav-link" href="#">主页</a>
@@ -33,9 +33,7 @@
                             <a class="nav-link" href="#">其他问题</a>
                         </li>
                     </ul>
-                    <div class="d-flex justify-content-center">
-                        <button class="btn theme-bg" type="button">登录/注册</button>
-                    </div>
+                    <RouterLink to="/auth" class="nav-link self-btn">登录 | 注册</RouterLink>
                 </div>
             </nav>
         </div>
@@ -43,12 +41,12 @@
 </template>
 
 <script setup lang="ts" name="MainNav">
-
+import { RouterLink } from 'vue-router';
 </script>
 
 <style scoped>
 .head {
-    margin-top: 50px;
+    margin: 20px 0;
 }
 
 .navbar-brand {
@@ -63,9 +61,9 @@
 }
 
 .nav-link {
-    color: black !important;
+    color: var(--MyText);
     font-weight: bold;
-    transition: all 0.3s ease-in-out;
+    transition: all 0.2s ease-in-out;
 }
 
 .nav-link:hover {
