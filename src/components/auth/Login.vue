@@ -1,14 +1,14 @@
 <template>
     <div class="login">
-        <div class="input-group mb-3 input-group-lg">
-            <span class="input-group-text" id="basic-addon1"><i class="bi bi-person"></i></span>
-            <input type="text" class="form-control" v-model="loginInfo.userEmail" placeholder="邮箱" aria-label="Username"
-                aria-describedby="basic-addon1">
+        <div class="form-floating mb-3">
+            <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com"
+                v-model="loginInfo.userEmail">
+            <label for="floatingInput">邮箱</label>
         </div>
-        <div class="input-group mb-3 input-group-lg">
-            <span class="input-group-text" id="basic-addon1"><i class="bi bi-lock"></i></span>
-            <input type="password" class="form-control" v-model="loginInfo.userPw" placeholder="密码"
-                aria-label="Username" aria-describedby="basic-addon1">
+        <div class="form-floating">
+            <input type="password" class="form-control" id="floatingPassword" placeholder="Password"
+                v-model="loginInfo.userPw">
+            <label for="floatingPassword">密码</label>
         </div>
         <div class="handle">
             <button type="button" class="btn btn-primary w-100 btn-lg" @click="Login">登录</button>
@@ -43,6 +43,7 @@ function Login() {
 
 .login .handle {
     width: 100%;
+    margin-top: 30px;
     display: flex;
     justify-content: space-between;
     align-items: center;

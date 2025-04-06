@@ -1,4 +1,8 @@
 <template>
+  <RouterLink to="/" class="d-inline-flex align-items-center text-decoration-none mt-3 ms-3 ">
+    <i class="bi bi-arrow-left-square-fill fs-1 theme-text-theme self-return"></i>
+  </RouterLink>
+
   <div class="auth">
     <h1>MindBlog</h1>
     <div class="option">
@@ -14,14 +18,25 @@
 </template>
 
 <script setup lang="ts" name="Authentication">
+import { RouterLink } from 'vue-router';
+
 
 </script>
 
 <style scoped>
+.self-return {
+  transition: all 0.2s ease-in-out;
+}
+
+.self-return:hover {
+  color: #ffaf24 !important;
+  transform: scale(1.1);
+}
+
 .auth {
   width: 400px;
   height: auto;
-  margin: 80px auto;
+  margin: 50px auto;
 }
 
 .auth h1 {

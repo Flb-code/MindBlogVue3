@@ -51,7 +51,7 @@
 
 <style scoped>
 .special {
-    margin-top: 30px;
+    margin-top: 50px;
 }
 
 .card {
