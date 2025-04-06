@@ -14,6 +14,7 @@
 
 <script setup lang="ts" name="BlogList">
 import Blog from './Blog.vue';
+
 </script>
 
 <style scoped>
