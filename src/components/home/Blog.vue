@@ -2,8 +2,7 @@
     <div class="col-12 col-md-6">
         <div class="blog">
             <a href="#" class="d-flex align-items-center gap-2 text-decoration-none text-dark">
-                <img src="https://i.pravatar.cc/40?img=3" alt="avatar" class="rounded-circle avatar" width="40"
-                    height="40">
+                <img src="@/assets/images/user.jpg" alt="avatar" class="rounded-circle avatar" width="40" height="40">
                 <span class="fw-bold fs-5 username">阿斯蒂芬</span>
             </a>
             <h4 class="fw-bold">MindBlog项目</h4>

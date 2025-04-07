@@ -1,5 +1,5 @@
 <template>
-    <div class="container transition-style ">
+    <div class="container transition-style mt-5">
         <div id="carouselExampleIndicators" class="carousel slide self-round">
             <div class="carousel-indicators">
                 <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"

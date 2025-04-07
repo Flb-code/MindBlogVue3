@@ -1,5 +1,5 @@
 <template>
-    <div class="w-100 head">
+    <div class="w-100 head bg-white bg-lg-transparent">
         <div class="container transition-style">
             <nav class="navbar navbar-expand-lg">
                 <a class="navbar-brand theme-text" href="#">MindBlog</a>
@@ -45,10 +45,6 @@ import { RouterLink } from 'vue-router';
 </script>
 
 <style scoped>
-.head {
-    margin: 20px 0;
-}
-
 .navbar-brand {
     font-family: ZQK;
     font-size: 40px;
@@ -78,5 +74,11 @@ import { RouterLink } from 'vue-router';
 
 .collapse {
     transition: height 0.3s ease-in-out;
+}
+
+@media (min-width: 992px) {
+    .bg-lg-transparent {
+        background-color: transparent !important;
+    }
 }
 </style>

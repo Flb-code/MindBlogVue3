@@ -1,5 +1,5 @@
 <template>
-    <div class="container special">
+    <div class="container special transition-style">
         <div class="row g-4 justify-content-center">
             <div class="col-lg-3 col-md-6 col-12">
                 <div class="card">

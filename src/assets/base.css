@@ -25,6 +25,9 @@ body {
 .theme-bg {
   background-color: var(--MyTheme) !important;
 }
+.theme-bg-light {
+  background-color: var(--MyBg) !important;
+}
 .theme-text-dark {
   color: var(--MyText) !important;
 }
