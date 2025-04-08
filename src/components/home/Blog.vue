@@ -3,7 +3,7 @@
         <div class="blog">
             <a href="#" class="d-flex align-items-center gap-2 text-decoration-none text-dark">
                 <img src="@/assets/images/user.jpg" alt="avatar" class="rounded-circle avatar" width="40" height="40">
-                <span class="fw-bold fs-5 username">阿斯蒂芬特</span>
+                <span class="fw-bold fs-5 username">阿斯蒂芬特普</span>
             </a>
             <h4 class="fw-bold">MindBlog项目</h4>
             <p>MindBlog 是一个专注于技术分享与思想表达的个人博客平台。在这里，你可以阅读到关于编程、学习、思考与创意的文章。我们相信，每一段文字，都是思想的延伸；每一次分享，都是成长的足迹。</p>
