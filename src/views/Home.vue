@@ -2,7 +2,7 @@
     <MainNav></MainNav>
     <FocusSection></FocusSection>
     <Special></Special>
-    <BlogList></BlogList>
+    <BlogList title="博客推荐"></BlogList>
     <Footer></Footer>
 </template>
 
@@ -10,7 +10,7 @@
 import MainNav from '@/components/nav/MainNav.vue';
 import FocusSection from '@/components/home/FocusSection.vue';
 import Special from '@/components/home/Special.vue';
-import BlogList from '@/components/home/BlogList.vue';
+import BlogList from '@/components/article/BlogList.vue';
 import Footer from '@/components/home/Footer.vue';
 </script>
 

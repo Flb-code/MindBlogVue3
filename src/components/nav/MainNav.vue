@@ -10,10 +10,10 @@
                 <div class="collapse  navbar-collapse " id="navbarSupportedContent">
                     <ul class="navbar-nav mx-auto text-center mb-2 mb-lg-0 ">
                         <li class="nav-item">
-                            <a class="nav-link" href="#">主页</a>
+                            <RouterLink class="nav-link" to="/" active-class="active">主页</RouterLink>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">文章</a>
+                            <RouterLink class="nav-link" to="/article" active-class="active">文章</RouterLink>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
@@ -30,7 +30,10 @@
                             </ul>
                         </li>
                         <li class="nav-item ">
-                            <a class="nav-link" href="#">其他问题</a>
+                            <a class="nav-link" href="#" active-class="active">其他问题</a>
+                        </li>
+                        <li class="nav-item ">
+                            <RouterLink class="nav-link" to="/write" active-class="active">发布博客</RouterLink>
                         </li>
                     </ul>
                     <RouterLink to="/auth" class="nav-link self-btn">登录 | 注册</RouterLink>
@@ -46,10 +49,15 @@ import { RouterLink } from 'vue-router';
 
 <style scoped>
 .navbar-brand {
+    color: var(--MyTheme);
     font-family: ZQK;
     font-size: 40px;
     font-weight: bold;
     letter-spacing: 2px;
+}
+
+.navbar-brand::first-letter {
+    color: #ffaf24;
 }
 
 .nav-item {
@@ -68,8 +76,9 @@ import { RouterLink } from 'vue-router';
 }
 
 .nav-link.active {
-    color: #ffeb3b !important;
-    border-bottom: 2px solid #ffeb3b;
+    color: #ffaf24 !important;
+    border-bottom: 2px solid var(--MyTheme);
+    transform: scale(1.1);
 }
 
 .collapse {

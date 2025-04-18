@@ -22,6 +22,14 @@ const router = createRouter({
         },
       ],
     },
+    {
+      path: "/article",
+      component: () => import("@/views/Article.vue"),
+    },
+    {
+      path: "/write",
+      component: () => import("@/views/Write.vue"),
+    },
   ],
 });
 

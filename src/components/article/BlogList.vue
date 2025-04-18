@@ -1,6 +1,6 @@
 <template>
   <div class="panel container transition-style">
-    <h3>最新博客</h3>
+    <h3>{{ title }}</h3>
     <div class="row g-3">
       <Blog></Blog>
       <Blog></Blog>
@@ -14,7 +14,12 @@
 
 <script setup lang="ts" name="BlogList">
 import Blog from './Blog.vue';
-
+defineProps({
+  title: {
+    type: String,
+    default: 'Blog List',
+  },
+});
 </script>
 
 <style scoped>
