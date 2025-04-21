@@ -1,0 +1,209 @@
+.markdown-container {
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, sans-serif;
+  line-height: 1.8;
+  color: #333;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+/* 标题样式 */
+.markdown-container h1,
+.markdown-container h2,
+.markdown-container h3,
+.markdown-container h4,
+.markdown-container h5,
+.markdown-container h6 {
+  font-weight: 600;
+  margin: 1.5em 0 0.8em;
+  color: #222;
+  position: relative;
+}
+
+.markdown-container h1 {
+  font-size: 2.2rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.markdown-container h2 {
+  font-size: 1.8rem;
+  padding-bottom: 0.4rem;
+  border-bottom: 1px solid #f5f5f5;
+}
+
+.markdown-container h3 {
+  font-size: 1.5rem;
+}
+
+.markdown-container h4 {
+  font-size: 1.3rem;
+}
+
+.markdown-container h5 {
+  font-size: 1.1rem;
+  color: #666;
+}
+
+.markdown-container h6 {
+  font-size: 1rem;
+  color: #888;
+}
+
+/* 段落与文字 */
+.markdown-container p {
+  margin: 0 0 1.2em;
+  font-size: 1.05rem;
+  color: #444;
+}
+
+.markdown-container strong {
+  color: #222;
+  font-weight: 600;
+}
+
+.markdown-container em {
+  font-style: italic;
+  color: #555;
+}
+
+.markdown-container a {
+  color: #2563eb;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(37, 99, 235, 0.2);
+  transition: all 0.2s ease;
+}
+
+.markdown-container a:hover {
+  color: #1d4ed8;
+  border-bottom-color: currentColor;
+}
+
+/* 列表 */
+.markdown-container ul,
+.markdown-container ol {
+  margin: 1em 0;
+  padding-left: 1.5em;
+}
+
+.markdown-container li {
+  font-size: 1.2rem;
+  margin-bottom: 0.5em;
+  position: relative;
+}
+
+.markdown-container ol {
+  counter-reset: ordered-list;
+}
+
+/* 引用 */
+.markdown-container blockquote {
+  margin: 1.5em 0;
+  padding: 1em 1.5em;
+  background-color: #f8fafc;
+  border-left: 4px solid #2563eb;
+  color: #555;
+  font-style: italic;
+  border-radius: 0 4px 4px 0;
+}
+
+.markdown-container blockquote p {
+  margin: 0;
+}
+
+/* 代码 */
+.markdown-container code {
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+  background-color: #f3f4f6;
+  padding: 0.2em 0.4em;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.markdown-container pre {
+  background-color: #f8fafc;
+  border-radius: 6px;
+  padding: 1.5em;
+  overflow: auto;
+  margin: 1.5em 0;
+  border: 1px solid #e5e7eb;
+}
+
+.markdown-container pre code {
+  background-color: transparent;
+  padding: 0;
+  color: inherit;
+  line-height: 1.6em;
+}
+
+/* 表格 */
+.markdown-container table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5em 0;
+  font-size: 1.2rem;
+}
+
+.markdown-container th,
+.markdown-container td {
+  padding: 0.8em 1em;
+  text-align: left;
+  border: 1px solid #e5e7eb;
+}
+
+.markdown-container th {
+  background-color: #f9fafb;
+  font-weight: 600;
+  color: #333;
+}
+
+.markdown-container tr:nth-child(even) {
+  background-color: #f8fafc;
+}
+
+/* 分割线 */
+.markdown-container hr {
+  border: none;
+  height: 1px;
+  background-color: #e5e7eb;
+  margin: 2em 0;
+}
+
+/* 图片 */
+.markdown-container img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 4px;
+  margin: 1.5em 0;
+  display: block;
+}
+
+/* 任务列表 */
+.markdown-container .task-list-item {
+  list-style-type: none;
+  margin-left: -1.8em;
+}
+
+.markdown-container .task-list-item-checkbox {
+  margin-right: 0.6em;
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+  .markdown-container {
+    font-size: 0.95rem;
+    line-height: 1.7;
+  }
+
+  .markdown-container h1 {
+    font-size: 1.8rem;
+  }
+
+  .markdown-container h2 {
+    font-size: 1.5rem;
+  }
+
+  .markdown-container h3 {
+    font-size: 1.3rem;
+  }
+}

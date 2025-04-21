@@ -1,50 +1,69 @@
 <template>
     <div class="editor container">
-        <n-form size="large" :rules="rules">
-            <n-form-item label="文章标题" path="title">
-                <n-input placeholder="请输入文章标题" />
-            </n-form-item>
-            <n-form-item label="内容简介" path="overview">
-                <n-input type="textarea" rows="5" placeholder="请输入文章简介" />
-            </n-form-item>
-            <n-form-item label="文章标签">
-                <n-dynamic-tags v-model:value="model.tags" />
-            </n-form-item>
-            <n-form-item label="上传文章" path="file">
-                <n-upload multiple directory-dnd action="#" :max="5">
-                    <n-upload-dragger>
-                        <div style="margin-bottom: 12px">
-                            <n-icon size="48" :depth="3">
-                                <DocumentIcon />
-                            </n-icon>
-                        </div>
-                        <n-text style="font-size: 16px">
-                            点击或者拖动文件到该区域来上传
-                        </n-text>
-                        <n-p depth="3" style="margin: 8px 0 0 0">
-                            请不要上传敏感数据，比如你的银行卡号和密码，信用卡号有效期和安全码
-                        </n-p>
-                    </n-upload-dragger>
-                </n-upload>
-            </n-form-item>
-        </n-form>
-        <n-space align="center" justify="center">
-            <n-button ghost color="#144bb0">
-                预览
-            </n-button>
-            <n-button color="#144bb0">
-                发布博客
-            </n-button>
+        <n-space vertical :size="30">
+            <n-form size="large" :rules="rules" :model="formModel">
+                <n-form-item label="文章标题" path="title">
+                    <n-input v-model:value="writeStore.articleTitle" placeholder="请输入文章标题" />
+                </n-form-item>
+                <n-form-item label="内容简介" path="overview">
+                    <n-input v-model:value="writeStore.articleOverview" type="textarea" rows="2"
+                        placeholder="请输入文章简介" />
+                </n-form-item>
+                <n-form-item label="文章标签">
+                    <n-dynamic-tags v-model:value="writeStore.articleTag" :max="3" />
+                </n-form-item>
+                <n-form-item label="上传文章">
+                    <n-upload accept=".md" action="http://localhost:8000/upload/article" :on-finish="upLoadFinish"
+                        :on-error="upLoadFail" :max="1">
+                        <n-upload-dragger>
+                            <div style="margin-bottom: 12px">
+                                <n-icon size="48" :depth="3">
+                                    <DocumentIcon />
+                                </n-icon>
+                            </div>
+                            <n-text style="font-size: 16px">
+                                点击或者拖动文件到该区域来上传
+                            </n-text>
+                            <n-p depth="3" style="margin: 8px 0 0 0">
+                                请不要上传敏感数据，比如你的银行卡号和密码，信用卡号有效期和安全码
+                            </n-p>
+                        </n-upload-dragger>
+                    </n-upload>
+                </n-form-item>
+            </n-form>
+            <n-card title="文章预览">
+                <div class="markdown-container" v-html="writeStore.FileContent"></div>
+            </n-card>
+            <n-space align="center" justify="center">
+                <n-button color="#144bb0" @click="publish">
+                    发布博客
+                </n-button>
+            </n-space>
         </n-space>
+
     </div>
 </template>
 
 <script setup lang="ts" name="Editor">
 import { Document as DocumentIcon } from '@vicons/ionicons5'
-import { ref } from 'vue'
-const model = ref({
-    tags: ['vue', 'javascript', 'css']
-})
+import { ref, computed } from 'vue'
+import { type UploadFileInfo } from 'naive-ui'
+//@ts-ignore
+import MarkdownIt from 'markdown-it'
+import "@/assets/markdown.css"
+import hljs from 'highlight.js'
+import 'highlight.js/styles/atom-one-light.css'
+import { Message } from '@/utils'
+import { useWriteStore } from '@/stores'
+import { ArticlePublishRequest } from '@/api'
+
+const writeStore = useWriteStore()
+
+const formModel = computed(() => ({
+    title: writeStore.articleTitle,
+    overview: writeStore.articleOverview,
+}))
+
 const rules = {
     title: {
         required: true,
@@ -55,13 +74,66 @@ const rules = {
         required: true,
         trigger: 'blur',
         message: '请输入文章简介'
-    },
-    file: {
-        required: true,
-        trigger: 'blur',
-        message: '请上传文章'
-    },
+    }
 }
+
+const md = new MarkdownIt({
+    html: true,
+    linkify: true,
+    typographer: true,
+    highlight: function (str: string, lang: string) {
+        if (lang && hljs.getLanguage(lang)) {
+            try {
+                return hljs.highlight(str, { language: lang }).value
+            } catch (__) { }
+        }
+        return ''
+    }
+});
+
+//上传完成后回调
+const upLoadFinish = (options: { file: UploadFileInfo, event?: ProgressEvent }) => {
+    const rawFile = options.file.file
+    if (!rawFile) return
+    const responseText = (options.event?.target as XMLHttpRequest)?.responseText
+    if (responseText) {
+        const response = JSON.parse(responseText)
+        if (response.code !== 20000) {
+            Message.Error(response.message)
+            return
+        }
+        writeStore.articleID = response.data
+        Message.Success('上传成功')
+    }
+    const reader = new FileReader()
+    reader.onload = (e) => {
+        const content = e.target?.result as string
+        writeStore.FileContent= md.render(content)
+    }
+    reader.readAsText(rawFile)
+}
+//上传失败回调
+const upLoadFail = () => {
+    Message.Error('上传失败')
+}
+
+//发布事件
+const publish = () => {
+    const { articleTitle, articleOverview, articleTag, articleID } = writeStore
+    if (!articleTitle || !articleOverview || !articleTag || !articleID) {
+        Message.Error('请填写完整信息')
+        return
+    }
+    const data = {
+        articleTitle,
+        articleOverview,
+        articleTag:JSON.stringify(articleTag),
+        articleID,
+        authorId: 8
+    }
+     ArticlePublishRequest(data)
+}
+
 </script>
 
 <style scoped>
@@ -71,6 +143,7 @@ const rules = {
     height: auto;
     margin-top: 30px;
     padding: 35px 25px;
+    border-radius: 20px;
     background-color: white;
 }
 
@@ -86,8 +159,10 @@ const rules = {
     margin-bottom: 20px;
 }
 
-n-input {
-    transition: border-color 0.3s ease;
-    /* 鼠标悬停和焦点都有平滑过渡 */
+.editor .preview {
+    width: 100%;
+    height: auto;
+    padding: 20px;
+    border-radius: 10px;
 }
 </style>

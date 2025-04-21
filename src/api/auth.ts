@@ -1,7 +1,6 @@
 import type { LoginInfo, RegisterInfo } from "@/types";
 import { Post } from "./request";
 import { DataControl, Message } from "@/utils";
-import axios from "axios";
 
 const LoginRequest = async (data: LoginInfo) => {
   try {
