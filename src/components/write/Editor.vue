@@ -129,7 +129,7 @@ const publish = () => {
         articleOverview,
         articleTag:JSON.stringify(articleTag),
         articleID,
-        authorId: 8
+        authorId: 1
     }
      ArticlePublishRequest(data)
 }

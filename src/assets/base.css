@@ -18,6 +18,7 @@ body {
 
 :root {
   --MyTheme: #144bb0;
+  --MySecondaryColor: #ffaf24;
   --MyBg: #f0f3f8;
   --MyText: #18243c;
 }

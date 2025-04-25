@@ -13,7 +13,7 @@
                             <RouterLink class="nav-link" to="/" active-class="active">主页</RouterLink>
                         </li>
                         <li class="nav-item">
-                            <RouterLink class="nav-link" to="/article" active-class="active">文章</RouterLink>
+                            <RouterLink class="nav-link" to="/article" active-class="active">博客</RouterLink>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
@@ -57,7 +57,7 @@ import { RouterLink } from 'vue-router';
 }
 
 .navbar-brand::first-letter {
-    color: #ffaf24;
+    color: var(--MySecondaryColor);
 }
 
 .nav-item {
@@ -71,12 +71,12 @@ import { RouterLink } from 'vue-router';
 }
 
 .nav-link:hover {
-    color: #ffaf24 !important;
+    color: var(--MySecondaryColor)!important;
     transform: scale(1.1);
 }
 
 .nav-link.active {
-    color: #ffaf24 !important;
+    color: var(--MySecondaryColor) !important;
     border-bottom: 2px solid var(--MyTheme);
     transform: scale(1.1);
 }

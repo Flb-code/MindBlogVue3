@@ -1,4 +1,4 @@
-import type { LoginResponse } from "@/types/response";
+import type { Response } from "@/types";
 import axios from "axios";
 
 const service = axios.create({
@@ -15,8 +15,11 @@ service.interceptors.response.use(
   }
 );
 
-const Post = async (url: string, data?: object): Promise<LoginResponse> => {
+const Post = async (url: string, data?: object): Promise<Response> => {
   return await service.post(url, data);
 };
 
-export { Post };
+const Get = async (url: string, params?: object): Promise<Response> => {
+  return await service.get(url, {params});
+};
+export { Post, Get };

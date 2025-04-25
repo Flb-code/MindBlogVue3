@@ -1,7 +1,7 @@
-interface LoginResponse {
+interface Response {
   code: number;
   message: string;
   data?: any;
 }
 
-export type { LoginResponse };
+export type { Response };
