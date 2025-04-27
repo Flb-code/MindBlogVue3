@@ -36,7 +36,8 @@
                             <RouterLink class="nav-link" to="/write" active-class="active">发布博客</RouterLink>
                         </li>
                     </ul>
-                    <RouterLink to="/auth" class="nav-link self-btn">登录 | 注册</RouterLink>
+                    <RouterLink to="/auth" class="nav-link self-btn" v-if="!userInfo.username">登录 | 注册</RouterLink>
+                    <n-tag round type="info" size="large" :bordered="false" v-if="userInfo.username">{{userInfo.username}}</n-tag>
                 </div>
             </nav>
         </div>
@@ -44,7 +45,9 @@
 </template>
 
 <script setup lang="ts" name="MainNav">
+import { DataControl } from '@/utils';
 import { RouterLink } from 'vue-router';
+const userInfo=DataControl.ReadUserInfo()
 </script>
 
 <style scoped>

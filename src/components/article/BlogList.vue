@@ -32,7 +32,7 @@
 </template>
 <script lang="ts" setup name="BlogList">
 import { NCard, NSpace, NTag } from "naive-ui";
-import { useArticles } from "@/stores";
+import { useArticles} from "@/stores";
 import { onMounted } from "vue";
 import { ArticleListRequest } from "@/api";
 import { storeToRefs } from "pinia";

@@ -1,12 +1,21 @@
 import type { LoginInfo, RegisterInfo } from "@/types";
 import { Post } from "./request";
 import { DataControl, Message } from "@/utils";
+import { useUserInfo } from "@/stores";
+import type { useRouter } from "vue-router";
 
-const LoginRequest = async (data: LoginInfo) => {
+const LoginRequest = async (router: ReturnType<typeof useRouter>) => {
   try {
+    const userInfo = useUserInfo();
+    const data: LoginInfo = {
+      userEmail: userInfo.userEmail,
+      userPw: userInfo.userPassword,
+    };
     const response = await Post("/user/login", data);
     if (response.code === 10001) {
+      userInfo.clearLoginInfo();
       DataControl.StorageUserInfo(response.data);
+      router.push("/");
       Message.Success("欢迎，" + response.data.username);
       return;
     }

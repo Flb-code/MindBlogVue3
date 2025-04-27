@@ -13,8 +13,9 @@
                     <n-dynamic-tags v-model:value="writeStore.articleTag" :max="3" />
                 </n-form-item>
                 <n-form-item label="上传文章">
-                    <n-upload accept=".md" action="http://localhost:8000/upload/article" :on-finish="upLoadFinish"
-                        :on-error="upLoadFail" :max="1">
+                    <n-upload accept=".md" action="http://localhost:8000/upload/article" :headers="uploadHeaders"
+                        :before-upload="beforeUpload" :on-finish="upLoadFinish" :on-error="upLoadFail" :max="1"
+                        v-model:file-list="writeStore.fileList">
                         <n-upload-dragger>
                             <div style="margin-bottom: 12px">
                                 <n-icon size="48" :depth="3">
@@ -47,18 +48,17 @@
 <script setup lang="ts" name="Editor">
 import { Document as DocumentIcon } from '@vicons/ionicons5'
 import { ref, computed } from 'vue'
-import { type UploadFileInfo } from 'naive-ui'
 //@ts-ignore
 import MarkdownIt from 'markdown-it'
 import "@/assets/markdown.css"
 import hljs from 'highlight.js'
 import 'highlight.js/styles/atom-one-light.css'
+import { type UploadFileInfo } from "naive-ui";
 import { Message } from '@/utils'
 import { useWriteStore } from '@/stores'
 import { ArticlePublishRequest } from '@/api'
-
+import { DataControl } from "@/utils";
 const writeStore = useWriteStore()
-
 const formModel = computed(() => ({
     title: writeStore.articleTitle,
     overview: writeStore.articleOverview,
@@ -78,17 +78,18 @@ const rules = {
 }
 
 const md = new MarkdownIt({
-    html: true,
-    linkify: true,
-    typographer: true,
+    html: true, // 是否允许渲染 HTML 标签
+    breaks: true, // 是否将换行符转换为 <br>
+    linkify: true, // 自动识别 URL 并转换为链接
+    // typographer: true, // 启用排版功能
     highlight: function (str: string, lang: string) {
         if (lang && hljs.getLanguage(lang)) {
             try {
-                return hljs.highlight(str, { language: lang }).value
+                return hljs.highlight(str, { language: lang }).value;
             } catch (__) { }
         }
-        return ''
-    }
+        return "";
+    },
 });
 
 //上传完成后回调
@@ -96,6 +97,8 @@ const upLoadFinish = (options: { file: UploadFileInfo, event?: ProgressEvent }) 
     const rawFile = options.file.file
     if (!rawFile) return
     const responseText = (options.event?.target as XMLHttpRequest)?.responseText
+    console.log(responseText);
+
     if (responseText) {
         const response = JSON.parse(responseText)
         if (response.code !== 20000) {
@@ -108,7 +111,7 @@ const upLoadFinish = (options: { file: UploadFileInfo, event?: ProgressEvent }) 
     const reader = new FileReader()
     reader.onload = (e) => {
         const content = e.target?.result as string
-        writeStore.FileContent= md.render(content)
+        writeStore.FileContent = md(content)
     }
     reader.readAsText(rawFile)
 }
@@ -127,13 +130,24 @@ const publish = () => {
     const data = {
         articleTitle,
         articleOverview,
-        articleTag:JSON.stringify(articleTag),
+        articleTag: JSON.stringify(articleTag),
         articleID,
         authorId: 1
     }
-     ArticlePublishRequest(data)
+    ArticlePublishRequest(data)
 }
 
+// 配置上传请求头
+const uploadHeaders = ref({
+    "Authorization": DataControl.ReadUserInfo()?.token,
+    "Content-Type": "multipart/form-data", // 确保是文件上传
+});
+// `beforeUpload` 用于在上传前进行处理，返回 `false` 阻止默认上传
+const beforeUpload = (file: File) => {
+    // 这里你可以进行文件的检查等操作
+    console.log(file);
+    return true; // 返回 true 继续上传
+};
 </script>
 
 <style scoped>

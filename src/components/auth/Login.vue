@@ -2,12 +2,12 @@
     <div class="login">
         <div class="form-floating mb-3">
             <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com"
-                v-model="loginInfo.userEmail">
+                v-model="userInfo.userEmail">
             <label for="floatingInput">邮箱</label>
         </div>
         <div class="form-floating">
             <input type="password" class="form-control" id="floatingPassword" placeholder="Password"
-                v-model="loginInfo.userPw">
+                v-model="userInfo.userPassword">
             <label for="floatingPassword">密码</label>
         </div>
         <div class="handle">
@@ -18,18 +18,14 @@
 </template>
 
 <script setup lang="ts" name="Login">
-import { reactive } from 'vue'
-import { LoginCheck } from '@/utils'
-import type { LoginInfo } from '@/types'
 import { LoginRequest } from '@/api'
-const loginInfo = reactive<LoginInfo>({
-    userEmail: "",
-    userPw: ""
-})
-
+import {useUserInfo} from '@/stores'
+import { useRouter } from 'vue-router'
+const router = useRouter()
+const userInfo = useUserInfo()
 function Login() {
-    if (LoginCheck(loginInfo)) {
-        LoginRequest(loginInfo)
+    if (userInfo.checkLoginInfo() ){ 
+        LoginRequest(router)
     }
 }
 </script>
