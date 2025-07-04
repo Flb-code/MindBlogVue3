@@ -26,6 +26,8 @@ const ArticleListRequest = async (info: ArticleListRequestInfo) => {
     const response = await Post("/article/data", info);
     if (response.code === 20006) {
       articleStore.articles = response.data;
+      console.log("获取文章列表成功", response.data);
+      
     }
     return;
   } catch (error: any) {

@@ -13,7 +13,7 @@
                 作者
               </div>
               <div class="right">
-                阿斯蒂芬
+                {{ item.authorId }}
               </div>
             </div>
             <n-divider vertical />

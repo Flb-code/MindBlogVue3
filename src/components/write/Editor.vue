@@ -13,7 +13,7 @@
                     <n-dynamic-tags v-model:value="writeStore.articleTag" :max="3" />
                 </n-form-item>
                 <n-form-item label="上传文章">
-                    <n-upload accept=".md" action="http://localhost:8000/upload/article" :headers="uploadHeaders"
+                    <n-upload accept=".md" action="http://8.152.221.142:8000/upload/article" :headers="uploadHeaders"
                         :before-upload="beforeUpload" :on-finish="upLoadFinish" :on-error="upLoadFail" :max="1"
                         v-model:file-list="writeStore.fileList">
                         <n-upload-dragger>
@@ -81,7 +81,7 @@ const md = new MarkdownIt({
     html: true, // 是否允许渲染 HTML 标签
     breaks: true, // 是否将换行符转换为 <br>
     linkify: true, // 自动识别 URL 并转换为链接
-    // typographer: true, // 启用排版功能
+    typographer: true, // 启用排版功能
     highlight: function (str: string, lang: string) {
         if (lang && hljs.getLanguage(lang)) {
             try {
@@ -111,7 +111,7 @@ const upLoadFinish = (options: { file: UploadFileInfo, event?: ProgressEvent }) 
     const reader = new FileReader()
     reader.onload = (e) => {
         const content = e.target?.result as string
-        writeStore.FileContent = md(content)
+        writeStore.FileContent = md.render(content)
     }
     reader.readAsText(rawFile)
 }
@@ -140,7 +140,6 @@ const publish = () => {
 // 配置上传请求头
 const uploadHeaders = ref({
     "Authorization": DataControl.ReadUserInfo()?.token,
-    "Content-Type": "multipart/form-data", // 确保是文件上传
 });
 // `beforeUpload` 用于在上传前进行处理，返回 `false` 阻止默认上传
 const beforeUpload = (file: File) => {

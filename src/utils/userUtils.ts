@@ -55,7 +55,7 @@ const DataControl = {
     if (result) {
       return JSON.parse(result);
     }
-    return;
+    return "";
   },
 };
 
